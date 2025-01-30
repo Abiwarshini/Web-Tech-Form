@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Craft Workshop Registration</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('img2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            text-align: center;
+            color: #eb0d0d;
+        }
+
+        input, select {
+            margin-top: 5px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 10px;
+            background-color: #eb0d0d;
+            color: white;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: darkred;
+        }
+
+        option {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Christmas Craft Workshop Registration Form</h3>
+        <form id="registrationForm">
+            <label>Name</label>
+            <input type="text" id="fname" name="fname">
+
+            <label>Age</label>
+            <input type="number" id="age" name="age">
+
+            <label>Email</label>
+            <input type="email" id="email" name="email">
+
+            <label>Contact Number</label>
+            <input type="number" id="number" name="number">
+
+            <label>Workshop Selection</label>
+            <select id="workshop" name="workshop">
+                <option value="">Select a Workshop</option>
+                <option value="tree_ornaments">Christmas Tree Ornaments</option>
+                <option value="wreath_making">Wreath Making</option>
+                <option value="Christmas_Stocking">Christmas Stocking</option>
+                <option value="Holiday_cards">Holiday Cards</option>
+            </select>
+
+            <label>Special Accommodation Request:</label>
+            <input type="text" id="accommodation" name="accommodation">
+
+            <button type="submit" onclick="result(event)">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function result(event) {
+            event.preventDefault(); // Prevent form submission for validation
+
+            // Get form field values
+            const name = document.getElementById("fname").value.trim();
+            const age = document.getElementById("age").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const contactNumber = document.getElementById("number").value.trim();
+            const workshop = document.getElementById("workshop").value;
+            const accommodation = document.getElementById("accommodation").value.trim();
+
+            // Validation Flags
+            let formValid = true;
+            let errorMessage = "";
+
+            // Name validation
+            if (name === "") {
+                formValid = false;
+                errorMessage += "Name is required.\n";
+            }
+
+            // Email validation (basic check)
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (email === "" || !emailPattern.test(email)) {
+                formValid = false;
+                errorMessage += "Please enter a valid email address.\n";
+            }
+
+            // Age validation
+            if (age === "" || parseInt(age) <= 0) {
+                formValid = false;
+                errorMessage += "Please enter a valid age.\n";
+            }
+
+            // Contact Number validation
+            const contactPattern = /^[0-9]{10}$/;
+            if (!contactPattern.test(contactNumber)) {
+                formValid = false;
+                errorMessage += "Please enter a valid 10-digit contact number.\n";
+            }
+
+            // Workshop selection validation
+            if (workshop === "") {
+                formValid = false;
+                errorMessage += "Please select a workshop.\n";
+            }
+            if (accommodation === "") {
+                formValid = false;
+                alert("Please select a accodomation.\n");
+            }
+
+            // Display error message or success
+            if (formValid) {
+                alert(`Thank you for registering, ${name}!\nWorkshop: ${workshop}`);
+                document.getElementById("registrationForm").reset(); // Reset the form after success
+            } else {
+                alert("Form submission failed due to the following errors:\n\n" + errorMessage);
+            }
+        }
+    </script>
+</body>
+</html>
